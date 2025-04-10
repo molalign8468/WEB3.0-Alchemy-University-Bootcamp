@@ -16,6 +16,12 @@ function mine() {
   for (let i = 0; i < mempool.length; i++) {
     blocks.push(mempool[i]);
   }
+
+  // Add new Block height prior to the new block being added
+  const newBlock = {
+    id: blocks.length,
+  };
+  blocks.push(newBlock);
 }
 
 module.exports = {
