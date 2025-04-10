@@ -21,7 +21,9 @@ function mine() {
   const newBlock = {
     id: blocks.length,
   };
-  blocks.push(newBlock);
+  const blockString = JSON.stringify(newBlock);
+  let hash = SHA256(blockString);
+  blocks.push({ ...newBlock, hash });
 }
 
 module.exports = {
