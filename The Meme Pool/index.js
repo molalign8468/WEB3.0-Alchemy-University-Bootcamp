@@ -13,13 +13,15 @@ function addTransaction(transaction) {
 
 function mine() {
   // TODO: mine a block
-  for (let i = 0; i < mempool.length; i++) {
-    blocks.push(mempool[i]);
+  let transactions = [];
+  while (transactions.length < MAX_TRANSACTIONS && mempool.length > 0) {
+    transactions.push(mempool.pop());
   }
 
   // Add new Block height prior to the new block being added
   const newBlock = {
     id: blocks.length,
+    transactions,
   };
   const blockString = JSON.stringify(newBlock);
   let hash = SHA256(blockString);
