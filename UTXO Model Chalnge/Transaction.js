@@ -4,11 +4,20 @@ class Transaction {
     this.outputUTXOs = outputUTXOs;
   }
   execute() {
-    this.inputUTXOs.map((itm) => {
-      if (itm.spent == true) {
-        throw new Error("this trnsaction is used", inputUTXOs);
-      }
-    });
+    const anySpent = this.inputUTXOs.some((x) => x.spent);
+    if (anySpent) {
+      throw new Error("Cannot include a spent UTXO");
+    }
+
+    const inputAmount = this.inputUTXOs.reduce((p, c) => {
+      return p + c.amount;
+    }, 0);
+    const outputAmount = this.outputUTXOs.reduce((p, c) => {
+      return p + c.amount;
+    }, 0);
+    if (inputAmount < outputAmount) {
+      throw new Error("Not enough here");
+    }
   }
 }
 
