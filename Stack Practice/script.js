@@ -54,3 +54,73 @@ class OperationManager {
     }
   }
 }
+
+const operationManager = new OperationManager();
+
+const addItem = document.getElementById("addItem");
+const undo = document.getElementById("Undo");
+const redo = document.getElementById("Redo");
+const redoAll = document.getElementById("reDoAll");
+
+function updateUI() {
+  const list = document.getElementById("list");
+  list.innerHTML = "";
+
+  const tempStack = new Stack();
+
+  while (!operationManager.operations.isEmpty()) {
+    tempStack.push(operationManager.operations.pop());
+  }
+
+  while (!tempStack.isEmpty()) {
+    const item = tempStack.pop();
+    operationManager.operations.push(item);
+
+    const li = document.createElement("li");
+    li.textContent = item;
+    list.appendChild(li);
+  }
+}
+
+addItem.addEventListener("click", () => {
+  const input = document.getElementById("itemInput");
+  const value = input.value.trim();
+
+  if (value) {
+    try {
+      operationManager.addOperations(value);
+      input.value = "";
+      updateUI();
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+});
+undo.addEventListener("click", () => {
+  try {
+    operationManager.undo();
+    updateUI();
+  } catch (error) {
+    alert("Nothing to undo!");
+  }
+});
+redo.addEventListener("click", () => {
+  try {
+    operationManager.redo();
+    updateUI();
+  } catch (error) {
+    alert("Nothing to redo!");
+  }
+});
+redoAll.addEventListener("click", () => {
+  try {
+    operationManager.redoAll();
+    updateUI();
+  } catch (error) {
+    alert("Nothing to redo!");
+  }
+});
+
+operationManager.addOperations("First Item");
+operationManager.addOperations("Second Item");
+updateUI();

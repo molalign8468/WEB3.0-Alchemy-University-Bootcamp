@@ -4,19 +4,146 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Stack Practice</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .demo-title {
+        text-align: center;
+        color: #2c3e50;
+        margin-bottom: 25px;
+        font-size: 2.2em;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .stack-info {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 25px;
+        border-left: 4px solid #3498db;
+      }
+
+      .controls {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 25px;
+      }
+
+      #itemInput {
+        flex: 1;
+        padding: 12px;
+        border: 2px solid #3498db;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: all 0.3s ease;
+      }
+
+      #itemInput:focus {
+        outline: none;
+        border-color: #2980b9;
+        box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
+      }
+
+      button {
+        padding: 12px 25px;
+        border: none;
+        border-radius: 8px;
+        background: #3498db;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      button:hover {
+        background: #2980b9;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      button:active {
+        transform: translateY(0);
+      }
+
+      #list {
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      #list li {
+        padding: 15px 20px;
+        background: white;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: all 0.3s ease;
+      }
+
+      #list li:last-child {
+        border-bottom: none;
+      }
+
+      #list li:hover {
+        background: #f8f9fa;
+        transform: translateX(10px);
+      }
+
+      .stack-indicator {
+        font-size: 0.9em;
+        color: #95a5a6;
+        margin-top: 15px;
+        text-align: center;
+      }
+    </style>
   </head>
   <body>
-    <div>
-      <ul>
-        <li>1</li>
-        <li>1</li>
-        <li>1</li>
-      </ul>
-    </div>
-    <div>
-      <button>Undo</button>
-      <button>Redo</button>
-      <button>Redo All</button>
+    <div class="container">
+      <h1 class="demo-title">Stack Operations Demo</h1>
+      <div class="stack-info">
+        <h2>How Stack Operations Work:</h2>
+        <ul>
+          <li>
+            📥 <strong>Push:</strong> Add items to the top of the stack (Max 10
+            items)
+          </li>
+          <li>
+            📤 <strong>Pop:</strong> Remove items from the top of the stack
+          </li>
+          <li>⏮️ <strong>Undo:</strong> Moves last operation to undo stack</li>
+          <li>⏭️ <strong>Redo:</strong> Restores last undone operation</li>
+        </ul>
+      </div>
+      <div class="controls">
+        <input type="text" id="itemInput" placeholder="Enter list item" />
+        <button id="addItem">Add Item</button>
+        <button id="Undo">Undo</button>
+        <button id="Redo">Redo</button>
+        <button id="reDoAll">Redo All</button>
+      </div>
+      <ul id="list"></ul>
+      <div class="stack-indicator">
+        Current Stack Size: <span id="stackSize">0</span>/10
+      </div>
     </div>
 
     <script src="./script.js"></script>
