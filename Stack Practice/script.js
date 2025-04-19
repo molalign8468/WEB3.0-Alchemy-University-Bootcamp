@@ -1,4 +1,4 @@
-const MAX_STACK_SIZE = 10;
+const MAX_STACK_SIZE = 5;
 class Stack {
   constructor() {
     this.items = [];
@@ -30,6 +30,9 @@ class Stack {
     }
     return this.items[this.items.length - 1];
   }
+  size() {
+    return this.items.length;
+  }
 }
 
 class OperationManager {
@@ -53,6 +56,9 @@ class OperationManager {
       this.redo();
     }
   }
+  operationsStackSize() {
+    return this.operations.size();
+  }
 }
 
 const operationManager = new OperationManager();
@@ -61,6 +67,7 @@ const addItem = document.getElementById("addItem");
 const undo = document.getElementById("Undo");
 const redo = document.getElementById("Redo");
 const redoAll = document.getElementById("reDoAll");
+const stackSize = document.getElementById("stackSize");
 
 function updateUI() {
   const list = document.getElementById("list");
@@ -80,6 +87,7 @@ function updateUI() {
     li.textContent = item;
     list.appendChild(li);
   }
+  stackSize.textContent = operationManager.operationsStackSize();
 }
 
 addItem.addEventListener("click", () => {
@@ -101,7 +109,7 @@ undo.addEventListener("click", () => {
     operationManager.undo();
     updateUI();
   } catch (error) {
-    alert("Nothing to undo!");
+    alert("Stack UnderFlow");
   }
 });
 redo.addEventListener("click", () => {
@@ -120,7 +128,7 @@ redoAll.addEventListener("click", () => {
     alert("Nothing to redo!");
   }
 });
-
 operationManager.addOperations("First Item");
 operationManager.addOperations("Second Item");
+
 updateUI();
