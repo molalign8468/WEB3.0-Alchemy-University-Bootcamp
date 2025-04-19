@@ -14,4 +14,4 @@ function getDeeplyNestedValue(obj) {
   }
 }
 
-console.log(getDeeplyNestedValue(i));
+console.log(getDeeplyNestedValue(obj));
