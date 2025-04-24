@@ -24,5 +24,16 @@ const geBalance = async (address) => {
   console.log(response.data.result);
   return response.data.result;
 };
+async function getNonce(address) {
+  const response = await axios.post(url, {
+    jsonrpc: "2.0",
+    id: 1,
+    method: "eth_getTransactionCount",
+    params: [address, "latest"],
+  });
+
+  return response.data.result;
+}
 getBlockNumber();
 geBalance("0x825964B04eb5f4c6156dFD48dD1a70082eF2cd56");
+console.log(getNonce("0x825964B04eb5f4c6156dFD48dD1a70082eF2cd56"));
