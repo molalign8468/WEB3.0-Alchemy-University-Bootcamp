@@ -12,5 +12,8 @@
   "type": "commonjs",
   "dependencies": {
     "hardhat": "^2.25.0"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^6.0.0"
   }
 }
