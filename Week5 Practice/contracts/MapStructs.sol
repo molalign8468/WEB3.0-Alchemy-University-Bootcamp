@@ -14,5 +14,12 @@ contract Contract {
 		require(!users[msg.sender].isActive);
 		users[msg.sender] = User(100,true);
 	}
+    function transfer(address to, uint amount) external {
+		require(users[msg.sender].isActive);
+		require(users[to].isActive);
+		require(users[msg.sender].balance >= amount);
+		users[msg.sender].balance -= amount;
+		users[to].balance += amount;
+	}
 
 }
